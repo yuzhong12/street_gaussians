@@ -1,15 +1,15 @@
-task: ???
-source_path: ???
-exp_name: ???
+task: waymo_test
+source_path: ../input/002
+exp_name: waymo_train_002
 to_cuda: true # move training cameras to GPU 
 
 data:
   split_test: -1
   split_train: 1
-  type: ???
+  type: Waymo
   white_background: false
-  selected_frames: ???
-  cameras: ???
+  selected_frames: [98, 198]
+  cameras: [0, 1, 2]
   extent: 10 # the unit here is meter
   use_colmap: true
   filter_colmap: true
@@ -28,7 +28,7 @@ model:
     opt_track: true
   sky:
     resolution: 1024
-    white_background: ???  # set the default color based on the current time of day
+    white_background: True  # set the default color based on the current time of day
 
 train:
   iterations: 30000
@@ -63,7 +63,7 @@ optim:
 
   lambda_dssim: 0.2
   lambda_sky: 0.05
-  lambda_sky_scale: ??? # the sky mask is sometimes inaccurate, you can set the loss scale for each camera
+  lambda_sky_scale: [1, 1, 0] # the sky mask is sometimes inaccurate, you can set the loss scale for each camera
   lambda_mask: 0.1
   lambda_reg: 0.1
   lambda_depth_lidar: 0.1

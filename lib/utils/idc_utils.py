@@ -90,7 +90,10 @@ def load_camera_info_cosmos(datadir, cameras):
 
     for idx, cam in enumerate(cameras):
         for frame_id in range(frame_count):
-            json_path = os.path.join(datadir, 'autolabel', f"{frame_id + start_frame}.json")
+            json_name = frame_id + start_frame
+            if json_name > end_frame:
+                break
+            json_path = os.path.join(datadir, 'autolabel', f"{json_name}.json")
             with open(json_path, 'r') as f:
                 js = json.load(f)
 
